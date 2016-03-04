@@ -47,6 +47,9 @@ if [ "$1" = '/usr/bin/supervisord' ]; then
 			sed -ri 's/^('"$rackdc"'=).*/\1 '"$val"'/' "$CASSANDRA_CONFIG/cassandra-rackdc.properties"
 		fi
 	done
+    
+    sed -ri 's/enable_user_defined_functions: false/enable_user_defined_functions: true/g' "$CASSANDRA_CONFIG/cassandra.yaml"
+
 fi
 
 exec "$@"

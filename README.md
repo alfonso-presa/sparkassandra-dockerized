@@ -51,6 +51,9 @@ INSERT INTO test.kv(key, value) VALUES ('key2', 2);
 SELECT * FROM test.kv;
 ```
 
+outputs:
+
+```
  key  | value
 ------+-------
  key1 |     1
