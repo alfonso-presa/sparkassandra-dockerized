@@ -13,22 +13,24 @@ RUN /bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install oracle-java7-installer oracle-java7-set-default curl
 
 # download and install spark
-RUN curl -s http://d3kbcqa49mib13.cloudfront.net/spark-1.3.0-bin-hadoop2.4.tgz | tar -xz -C /usr/local/
-RUN cd /usr/local && ln -s spark-1.3.0-bin-hadoop2.4 spark
+RUN curl -s http://apache.rediris.es/spark/spark-1.6.0/spark-1.6.0-bin-hadoop2.4.tgz | tar -xz -C /usr/local/
+RUN cd /usr/local && ln -s spark-1.6.0-bin-hadoop2.4 spark
 
 # install cassandra
-ENV CASSANDRA_VERSION 2.1.8
+ENV CASSANDRA_VERSION 2.2.5
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 514A2AD631A57A16DD0047EC749D6EEC0353B12C
-RUN echo 'deb http://www.apache.org/dist/cassandra/debian 21x main' >> /etc/apt/sources.list.d/cassandra.list
+RUN echo 'deb http://www.apache.org/dist/cassandra/debian 22x main' >> /etc/apt/sources.list.d/cassandra.list
 RUN apt-get update \
 	&& apt-get install -y cassandra="$CASSANDRA_VERSION" \
 	&& rm -rf /var/lib/apt/lists/*
+    
+# download connector
+RUN curl -L http://dl.bintray.com/spark-packages/maven/datastax/spark-cassandra-connector/1.6.0-M1-s_2.10/spark-cassandra-connector-1.6.0-M1-s_2.10.jar > /spark-cassandra-connector.jar
 
 # copy some script to run spark
 COPY scripts/start-master.sh /start-master.sh
 COPY scripts/start-worker.sh /start-worker.sh
 COPY scripts/spark-shell.sh /spark-shell.sh
-COPY scripts/spark-cassandra-connector-assembly-1.3.0-RC1-SNAPSHOT.jar /spark-cassandra-connector-assembly-1.3.0-RC1-SNAPSHOT.jar
 COPY scripts/spark-defaults.conf /spark-defaults.conf
 
 # configure spark
