@@ -42,15 +42,14 @@ To test your Cassandra cluster, you can run a cqlsh console to insert some data:
 docker run -it --link some-cassandra:cassandra --rm alfonso-presa/sparkassandra cqlsh cassandra
 
 # create some data and retrieve them:
-cqlsh>CREATE KEYSPACE test WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1 };
 
-cqlsh>CREATE TABLE test.kv(key text PRIMARY KEY, value int);
-
-cqlsh>INSERT INTO test.kv(key, value) VALUES ('key1', 1);
-
-cqlsh>INSERT INTO test.kv(key, value) VALUES ('key2', 2);
-
-cqlsh>SELECT * FROM test.kv;
+```
+CREATE KEYSPACE test WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1 };
+CREATE TABLE test.kv(key text PRIMARY KEY, value int);
+INSERT INTO test.kv(key, value) VALUES ('key1', 1);
+INSERT INTO test.kv(key, value) VALUES ('key2', 2);
+SELECT * FROM test.kv;
+```
 
  key  | value
 ------+-------

@@ -25,7 +25,7 @@ RUN apt-get update \
 	&& rm -rf /var/lib/apt/lists/*
     
 # download connector
-RUN curl -L http://dl.bintray.com/spark-packages/maven/datastax/spark-cassandra-connector/1.6.0-M1-s_2.10/spark-cassandra-connector-1.6.0-M1-s_2.10.jar > /spark-cassandra-connector.jar
+COPY scripts/spark-cassandra-connector-assembly-1.5.0.jar  /spark-cassandra-connector.jar
 
 # copy some script to run spark
 COPY scripts/start-master.sh /start-master.sh
