@@ -22,7 +22,7 @@ Let's Go!
 
 ```
 # run a Spark master
-docker run -d -t -P -e "SPARK_MASTER_IP=0.0.0.0" --name spark_master alfonso-presa/sparkassandra /start-master.sh
+docker run -d -t -P --name spark_master alfonso-presa/sparkassandra /start-master.sh
 
 # run a Cassandra + Spark worker node
 docker run -it --name some-cassandra --link spark_master:spark_master -d alfonso-presa/sparkassandra
